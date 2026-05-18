@@ -20,8 +20,8 @@ router.get(
         .json({ error: { code: 'VALIDATION', message: errors.array()[0].msg } });
     }
     try {
-      const limit = (req.query.limit as unknown as number) ?? 20;
-      const offset = (req.query.offset as unknown as number) ?? 0;
+      const limit = Number(req.query?.limit ?? 20);
+      const offset = Number(req.query?.offset ?? 0);
       const { users, total } = await listUsers(limit, offset);
       res.json({
         users: users.map(toListItem),
@@ -46,7 +46,7 @@ router.get(
         .json({ error: { code: 'VALIDATION', message: 'Invalid id' } });
     }
     try {
-      const id = req.params.id as unknown as number;
+      const id = Number(req.params?.id);
       const user = await findUserById(id);
       if (!user) {
         return res
