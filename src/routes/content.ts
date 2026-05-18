@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { verifyJWT } from '../middleware/auth';
-import { requireTier } from '../middleware/tier';
+import { verifyJWT } from '../middleware/auth.js';
+import { requireTier } from '../middleware/tier.js';
 
 const router = Router();
 

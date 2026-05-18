@@ -1,6 +1,6 @@
 import { Response, NextFunction } from 'express';
-import { AuthedRequest } from './auth';
-import { findUserById } from '../services/userService';
+import { AuthedRequest } from './auth.js';
+import { findUserById } from '../services/userService.js';
 
 export type Tier = 'free' | 'pro' | 'max';
 

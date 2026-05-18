@@ -6,9 +6,10 @@ import {
   createUser,
   findUserByEmail,
   findUserById,
+  listUsers,
   toPublic,
-} from '../services/userService';
-import { signToken, verifyJWT, AuthedRequest } from '../middleware/auth';
+} from '../services/userService.js';
+import { signToken, verifyJWT, AuthedRequest } from '../middleware/auth.js';
 
 const router = Router();
 
@@ -81,6 +82,18 @@ router.get('/me', verifyJWT, async (req: AuthedRequest, res: Response) => {
   const user = await findUserById(req.user.id);
   if (!user) return res.status(404).json({ error: { code: 'NOT_FOUND', message: 'User not found' } });
   return res.json(toPublic(user));
+});
+
+router.get('/users', async (req, res) => {
+  const limit = Math.min(Math.max(Number(req.query.limit) || 50, 1), 100);
+  const offset = Math.max(Number(req.query.offset) || 0, 0);
+  const { users, total } = await listUsers(limit, offset);
+  return res.json({
+    users: users.map(toPublic),
+    total,
+    limit,
+    offset,
+  });
 });
 
 export default router;

@@ -1,7 +1,7 @@
 import { Router, Response } from 'express';
-import { verifyJWT, AuthedRequest } from '../middleware/auth';
-import { query } from '../db';
-import { cancelAtPeriodEnd } from '../services/stripeService';
+import { verifyJWT, AuthedRequest } from '../middleware/auth.js';
+import { query } from '../db.js';
+import { cancelAtPeriodEnd } from '../services/stripeService.js';
 
 const router = Router();
 

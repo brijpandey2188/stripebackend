@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import { UserRow, setStripeCustomerId } from "./userService";
+import { UserRow, setStripeCustomerId } from "./userService.js";
 
 const secretKey = process.env.STRIPE_SECRET_KEY;
 if (!secretKey) {

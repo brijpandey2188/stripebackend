@@ -2,16 +2,16 @@ import { Router, Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import Stripe from "stripe";
 
-import { verifyJWT, AuthedRequest } from "../middleware/auth";
-import { findUserById } from "../services/userService";
-import { pool } from "../db";
+import { verifyJWT, AuthedRequest } from "../middleware/auth.js";
+import { findUserById } from "../services/userService.js";
+import { pool } from "../db.js";
 import {
   stripe,
   createCheckoutSession,
   planForPriceId,
   Plan,
-} from "../services/stripeService";
-import { Tier } from "../middleware/tier";
+} from "../services/stripeService.js";
+import { Tier } from "../middleware/tier.js";
 
 const router = Router();
 

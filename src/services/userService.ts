@@ -1,5 +1,5 @@
-import { query } from '../db';
-import { Tier } from '../middleware/tier';
+import { query } from '../db.js';
+import { Tier } from '../middleware/tier.js';
 
 export interface UserRow {
   id: number;
@@ -51,6 +51,22 @@ export async function findUserById(id: number): Promise<UserRow | null> {
     [id]
   );
   return rows[0] ?? null;
+}
+
+export async function listUsers(
+  limit: number,
+  offset: number
+): Promise<{ users: UserRow[]; total: number }> {
+  const { rows } = await query<UserRow>(
+    `SELECT * FROM users
+     ORDER BY id ASC
+     LIMIT $1 OFFSET $2`,
+    [limit, offset]
+  );
+  const { rows: countRows } = await query<{ count: string }>(
+    `SELECT COUNT(*)::text AS count FROM users`
+  );
+  return { users: rows, total: Number(countRows[0]?.count ?? 0) };
 }
 
 export async function setStripeCustomerId(
